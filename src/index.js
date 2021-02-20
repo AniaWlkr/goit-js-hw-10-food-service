@@ -17,25 +17,33 @@ const refs = {
 
 const userTheme = localStorage.getItem('Theme');
 
-function switchTheme(theme) { 
-  refs.body.removeAttribute('class');
+function addTheme(theme) { 
+  // refs.body.removeAttribute('class'); //удалит все классы
   refs.body.classList.add(theme);
 }
 
+function switchTheme() {
+  if (refs.body.classList.contains(Theme['LIGHT'])) {
+    refs.body.classList.replace(Theme['LIGHT'], Theme['DARK']);
+  }
+  else {
+    refs.body.classList.replace(Theme['DARK'], Theme['LIGHT']);
+  }
+}
+
 if (userTheme) { 
-  switchTheme(Theme[userTheme]);
+  addTheme(Theme[userTheme]);
   if (userTheme === 'DARK') {
     refs.switcher.checked = true;
   }
 }
 
-function onSwitcherChange(event){
+function onSwitcherChange(event) {
+  switchTheme();
   if (event.currentTarget.checked) {
-    switchTheme(Theme['DARK']);
     localStorage.setItem('Theme', 'DARK');
   }
   else {
-    switchTheme(Theme['LIGHT']);
     localStorage.setItem('Theme', 'LIGHT');
   }
 }
